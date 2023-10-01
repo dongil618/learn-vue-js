@@ -12,21 +12,30 @@
         var div = document.querySelector("#app");
         div.innerHTML = "hello world";
 
-        // Object.defineProperty("대상 객체", "객체 속성", {
-        //     // 정의할 내용
-        // })
         var viewmModel = {};
-        Object.defineProperty(viewmModel, 'str', {
-            // 속성을 접근했을 때의 동작을 정의
-            get : function() {
-                console.log("접근");
-            },
-            // 속성에 값을 할당했을 때의 동작을 정의
-            set : function(newValue) {
-                console.log("할당", newValue);
-                div.innerHTML = newValue;
+        
+        (function () {
+            function init() {
+                Object.defineProperty(viewmModel, 'str', {
+                    // 속성을 접근했을 때의 동작을 정의
+                    get: function () {
+                        console.log("접근");
+                    },
+                    // 속성에 값을 할당했을 때의 동작을 정의
+                    set: function (newValue) {
+                        console.log("할당", newValue);
+                        render(newValue);
+                    }
+                });
             }
-        });
+
+            function render(value) {
+                div.innerHTML = value;
+            }
+
+            init();
+        })();
+        
     </script>
 </body>
 </html>
